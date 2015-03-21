@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.home.autoparts</groupId>
-	<artifactId>auto-parts-storage</artifactId>
+	<artifactId>auto-parts-security</artifactId>
 	<packaging>jar</packaging>
-	<name>Auto parts storage module</name>
-	<description>Auto parts storage module</description>
+	<name>Auto parts Security</name>
+	<description>Auto parts Security</description>
 
 	<parent>
 		<groupId>com.home.autoparts</groupId>
@@ -17,37 +17,31 @@
 	<properties>
 	</properties>
 	<dependencies>
-		<!-- Internal dependencies -->
 		<dependency>
-			<groupId>com.home.autoparts</groupId>
-			<artifactId>auto-parts-api</artifactId>
-			<version>${project.version}</version>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.home.autoparts</groupId>
-			<artifactId>auto-parts-domain</artifactId>
-			<version>${project.version}</version>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt-spring31</artifactId>
 		</dependency>
-		<!-- External dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jongo</groupId>
-			<artifactId>jongo</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -59,6 +53,16 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+	                <environmentVariables>
+	                    <APP_ENCRYPTION_PASSWORD>master</APP_ENCRYPTION_PASSWORD>
+	                </environmentVariables>
+	            </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
