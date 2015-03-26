@@ -15,6 +15,9 @@
 	</parent>
 
 	<properties>
+		<mongo.test.archive>mongodb-win32-x86_64-2008plus-3.0.1.zip</mongo.test.archive>
+		<mongo.test.instance>mongodb-win32-x86_64-2008plus-3.0.1</mongo.test.instance>
+		<mongo.test.archive.url>https://fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-3.0.1.zip</mongo.test.archive.url>
 	</properties>
 	<dependencies>
 		<!-- Internal dependencies -->
@@ -27,6 +30,12 @@
 			<groupId>com.home.autoparts</groupId>
 			<artifactId>auto-parts-domain</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.home.autoparts</groupId>
+			<artifactId>auto-parts-test</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<!-- External dependencies -->
 		<dependency>
@@ -49,6 +58,16 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -67,6 +86,27 @@
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<environmentVariables>
+						<APP_ENCRYPTION_PASSWORD>master</APP_ENCRYPTION_PASSWORD>
+					</environmentVariables>
+					<systemPropertyVariables>
+						<mongoDistrib>${mongo.test.archive}</mongoDistrib>
+						<mongoInstance>${mongo.test.instance}</mongoInstance>
+						<mongoRemoteURL>${mongo.test.archive.url}</mongoRemoteURL>
+					</systemPropertyVariables>
+					<properties>
+						<property>
+							<name>listener</name>
+							<value>com.home.autoparts.test.listener.MongoTestListener</value>
+						</property>
+					</properties>
 				</configuration>
 			</plugin>
 		</plugins>
