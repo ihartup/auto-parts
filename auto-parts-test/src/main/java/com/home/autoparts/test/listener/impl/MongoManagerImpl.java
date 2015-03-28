@@ -2,13 +2,11 @@ package com.home.autoparts.test.listener.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.home.autoparts.test.listener.api.MongoCommand;
 import com.home.autoparts.test.listener.api.MongoConstants;
@@ -19,7 +17,7 @@ import com.home.autoparts.test.listener.resource.ResourceHandler;
 
 public class MongoManagerImpl implements MongoManager {
 	
-	private static final Logger logger = LoggerFactory.getLogger("chapters.introduction.HelloWorld1");
+	private static final Logger logger = LoggerFactory.getLogger(MongoManagerImpl.class);
 
 	@Autowired
 	private ResourceHandler resFinder;
@@ -80,7 +78,7 @@ public class MongoManagerImpl implements MongoManager {
 	public void stopDatabase() {
 		logger.info("Stopping mongo database...");
 		mongoCommand.stopMongo();
-		//allow it to shutdown
+		//allow it to shutdown - make this nicer
 		delay(3);
 	}
 	
@@ -88,8 +86,7 @@ public class MongoManagerImpl implements MongoManager {
 		try {
 			Thread.sleep(seconds * 1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Interupted exception was caught", e);
 		}
 	}
 
@@ -98,8 +95,7 @@ public class MongoManagerImpl implements MongoManager {
 		try {
 			FileUtils.deleteDirectory(mongoTargetDir);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("The mongo instance folder could not be deleted", e);
 		}
 
 	}

@@ -33,6 +33,9 @@ public class ResourceHandler {
 	
 	public boolean hasTempResource(String parentFolder, String resourceName){
 		File parentDir =  new File(TEMP_DIR, parentFolder);
+		if(!parentDir.exists() || !parentDir.isDirectory()) {
+			return false;
+		}
 		return hasGlobalResource(parentDir.getAbsolutePath(), resourceName);
 	}
 	

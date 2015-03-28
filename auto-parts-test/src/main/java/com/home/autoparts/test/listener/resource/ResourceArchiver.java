@@ -8,11 +8,14 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ResourceArchiver {
-
+	private static final Logger logger = LoggerFactory.getLogger(ResourceArchiver.class);
+	
 	public void unzip(String zipResource, String destDir) {
 		File dir = new File(destDir);
 		// create output directory if it doesn't exist
@@ -46,7 +49,7 @@ public class ResourceArchiver {
 			// close last ZipEntry
 			zis.closeEntry();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error was caught while unzipping file: " + zipResource, e);
 		} finally {
 			IOUtils.closeQuietly(zis);
 			IOUtils.closeQuietly(fis);
