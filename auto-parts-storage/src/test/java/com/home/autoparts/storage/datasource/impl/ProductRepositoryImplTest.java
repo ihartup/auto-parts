@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.Ignored;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,6 +18,7 @@ import com.home.autoparts.storage.datasource.domain.MongoProduct;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/app-storage-test.xml"})
+@Ignored
 public class ProductRepositoryImplTest {
 	
 	@Autowired
